@@ -3,7 +3,7 @@ var mqtt = require('mqtt')
 /*
 	* MQTT-WebClient example for Web-IO 4.0
 */
-var hostname = "mqtt://broker.hivemq.com";
+var hostname = "mqtt://test.mosquitto.org";
 var myport = 1883;
 var clientId = "mqttexample";
 clientId += new Date().getUTCMilliseconds();;
@@ -14,18 +14,15 @@ var subscription = "mywebio/+/status";
 mqttClient = new mqtt.connect(
     { 
         host: hostname, 
-        port: myport
-    } 
-    , {
-
-        username: myusername,
-        password: mypassword
+        //port: myport,
+        //username: myusername,
+        //password: mypassword
     }
 );
 
 mqttClient.onMessageArrived = MessageArrived;
 mqttClient.onConnectionLost = ConnectionLost;
-Connect();
+//Connect();
 
 /*
 	* MQTT-WebClient example for Web-IO 4.0

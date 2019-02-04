@@ -11,7 +11,7 @@ var myusername = "myuser";
 var mypassword = "mypassword";
 var subscription = "mywebio/+/status";
 
-mqttClient = new mqtt.connect(
+mqttClient = new mqtt.Client(
     { 
         host: hostname, 
         //port: myport,

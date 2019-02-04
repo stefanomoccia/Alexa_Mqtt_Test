@@ -11,11 +11,17 @@ var myusername = "myuser";
 var mypassword = "mypassword";
 var subscription = "mywebio/+/status";
 
-mqttClient = new mqtt.connect(hostname, {
-    port: myport,
-    username: myusername,
-    password: mypassword
-  });
+mqttClient = new mqtt.connect(
+    { 
+        host: hostname, 
+        port: myport
+    } 
+    , {
+
+        username: myusername,
+        password: mypassword
+    }
+);
 
 mqttClient.onMessageArrived = MessageArrived;
 mqttClient.onConnectionLost = ConnectionLost;

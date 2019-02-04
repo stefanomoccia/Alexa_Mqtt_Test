@@ -1,0 +1,85 @@
+{
+  "EDITOR_STATE": {
+    "allProjectFiles": {
+      "2e69e920-3bbb-4075-aafe-9f3744d64887": {
+        "id": "2e69e920-3bbb-4075-aafe-9f3744d64887",
+        "parent": null,
+        "name": "Alexa_Mqtt_Test",
+        "type": "DIRECTORY",
+        "isDirectory": true,
+        "children": [
+          "69af73fd-2492-4b23-b072-559aa5cf0737"
+        ],
+        "isRemovable": false,
+        "filePath": "Alexa_Mqtt_Test"
+      },
+      "69af73fd-2492-4b23-b072-559aa5cf0737": {
+        "id": "69af73fd-2492-4b23-b072-559aa5cf0737",
+        "parent": "2e69e920-3bbb-4075-aafe-9f3744d64887",
+        "name": "lambda.js",
+        "type": "LAMBDA_FILE",
+        "isDirectory": false,
+        "children": [],
+        "isRemovable": true,
+        "filePath": "Alexa_Mqtt_Test/lambda.js",
+        "code": "var mqtt = require('mqtt')\n\n/*\n\t* MQTT-WebClient example for Web-IO 4.0\n*/\nvar hostname = \"mqtt://broker.hivemq.com\";\nvar myport = 1883;\nvar clientId = \"mqttexample\";\nclientId += new Date().getUTCMilliseconds();;\nvar myusername = \"myuser\";\nvar mypassword = \"mypassword\";\nvar subscription = \"mywebio/+/status\";\n\nmqttClient = new mqtt.connect(hostname, {\n    port: myport,\n    username: myusername,\n    password: mypassword\n  });\n\nmqttClient.onMessageArrived = MessageArrived;\nmqttClient.onConnectionLost = ConnectionLost;\nConnect();\n\n/*\n\t* MQTT-WebClient example for Web-IO 4.0\n*/\n//var hostname = \"io.adafruit.com\";\n//var port = 8883;\n//var clientId = \"clientId\";\n//clientId += new Date().getUTCMilliseconds();;\n//var myusername = \"smoccia\";\n//var mypassword = \"ac7b6bfdab824cfab74b9140e6a85cda\";\n//var subscription = \"smoccia/f/status\";\n\n/*Initiates a connection to the MQTT broker*/\nfunction Connect(){\n\tmqttClient.connect({\n\tonSuccess: Connected,\n\tonFailure: ConnectionFailed,\n\tkeepAliveInterval: 10,\n\tuserName: myusername,\n\tuseSSL: true,\n\tpassword: mypassword});\n}\n\n/*Initiates a connection to the MQTT broker*/\n/*function Connect(){\n\tmqttClient.connect({\n\tonSuccess: Connected,\n\tonFailure: ConnectionFailed,\n\t//keepAliveInterval: 0,\n\tuserName: username,\n\tuseSSL: true,\n\tpassword: password});\n}*/\n\n/*Callback for successful MQTT connection */\nfunction Connected() {\n\tconsole.log(\"Connected\");\n\tmqttClient.subscribe(subscription);\n}\n\n/*Callback for failed connection*/\nfunction ConnectionFailed(res) {\n\tconsole.log(\"Connect failed:\" + res.errorMessage);\n}\n\n/*Callback for lost connection*/\nfunction ConnectionLost(res) {\n\tif (res.errorCode !== 0) {\n\t\tconsole.log(\"Connection lost:\" + res.errorMessage);\n\t\tConnect();\n\t}\n}\n\n/*Callback for incoming message processing */\nfunction MessageArrived(message) {\n\tconsole.log(message.destinationName +\" : \" + message.payloadString);\n\tswitch(message.payloadString){\n\t\tcase \"ON\":\n\t\t\tdisplayClass = \"on\";\n\t\t\tbreak;\n\t\tcase \"OFF\":\n\t\t\tdisplayClass = \"off\";\n\t\t\tbreak;\n\t\tdefault:\n\t\t\tdisplayClass = \"unknown\";\n\t}\n\tvar topic = message.destinationName.split(\"/\");\n\tif (topic.length == 3){\n\t\tvar ioname = topic[1];\n\t\tUpdateElement(ioname, displayClass);\n\t}\n}\n\n\n\n\n\n\n\n\nexports.handler = function(event, context, callback) {\n    \n    callback(null, {\"message\": \"Successfully executed\"});\n}",
+        "triggers": [],
+        "config": {
+          "runtime": "nodejs8.10",
+          "timeout": 60,
+          "memory": 128
+        },
+        "testCases": {
+          "6a030148-2e3b-4900-9bd7-98cedeba4bfc": {
+            "id": "6a030148-2e3b-4900-9bd7-98cedeba4bfc",
+            "name": "Unnamed event",
+            "functionId": "69af73fd-2492-4b23-b072-559aa5cf0737",
+            "event": "{\n    \"key1\": \"value1\",\n    \"key2\": \"value2\",\n    \"key3\": \"value3\"\n}"
+          }
+        }
+      }
+    },
+    "deletedFiles": [],
+    "rootNode": "2e69e920-3bbb-4075-aafe-9f3744d64887",
+    "openFiles": [
+      "69af73fd-2492-4b23-b072-559aa5cf0737"
+    ],
+    "currentFileId": "69af73fd-2492-4b23-b072-559aa5cf0737",
+    "resources": {},
+    "envVariables": [
+      {
+        "lambdaId": "all",
+        "varKey": "SIGMA_AWS_ACC_ID",
+        "varValue": null,
+        "shouldPersist": false,
+        "displayOnly": false,
+        "editable": false
+      }
+    ],
+    "packageJSON": {
+      "dependencies": {
+        "mqtt": {
+          "name": "mqtt",
+          "version": "2.18.8"
+        }
+      }
+    },
+    "lambdaId": "69af73fd-2492-4b23-b072-559aa5cf0737"
+  },
+  "PROJECT_META": {
+    "projectName": "Alexa_Mqtt_Test",
+    "projectDescription": "Testing MQTT Features",
+    "projectVersion": "1.0.0",
+    "projectRegion": "eu-west-1",
+    "platform": "AWS",
+    "platformRegions": {},
+    "lastSave": 1549301109043
+  },
+  "VCS_STATE": {
+    "provider": "GitHub",
+    "repo": {
+      "name": "Alexa_Mqtt_Test",
+      "url": "https://github.com/stefanomoccia/Alexa_Mqtt_Test"
+    }
+  }
+}

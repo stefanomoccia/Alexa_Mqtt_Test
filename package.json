@@ -1,0 +1,7 @@
+{
+  "name": "Alexa_Mqtt_Test",
+  "version": "1.0.0",
+  "dependencies": {
+    "mqtt": "2.18.8"
+  }
+}
